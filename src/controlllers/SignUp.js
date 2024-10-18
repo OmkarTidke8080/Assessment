@@ -27,6 +27,8 @@ export const SignUp = async (req, res) => {
     }
 
     const user = new User(userData);
+
+    // calls the middleware to get generated tokens
     const tokens = await generateAccessToken(req.body.Email);
 
     // sets the access token in cookies
@@ -36,7 +38,6 @@ export const SignUp = async (req, res) => {
       secure: true,
       sameSite: "Strict",
     });
-
 
     // sets the refresh token in cookies
     res.cookie("refreshToken", tokens.refreshToken, {
@@ -48,12 +49,14 @@ export const SignUp = async (req, res) => {
 
     await user.save();
 
+    // return success response
     return res.status(200).json({
       msg: "User sign-up successful",
       user,
     });
   } catch (error) {
     console.error(error);
+    // return error response
     return res.status(500).json({
       msg: "Internal server error",
       error: error.message,

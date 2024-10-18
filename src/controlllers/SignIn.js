@@ -7,7 +7,6 @@ import { validationResult } from "express-validator";
 // User Sign in
 export const SignIn = async (req, res) => {
 
-
   // checks validation of provided credentials
    const errors = validationResult(req);
    if (!errors.isEmpty()) {
@@ -32,6 +31,8 @@ export const SignIn = async (req, res) => {
       const isMatch = await bcrypt.compare(req.body.Password, user.Password);
 
       if (isMatch) {
+
+        // calls the middleware to get generated tokens
         const tokens = await generateAccessToken(req.body.Email);
         const accessToken = tokens.accessToken;
         const refreshToken = tokens.refreshToken;
@@ -52,11 +53,13 @@ export const SignIn = async (req, res) => {
           sameSite: "Strict",
         });
 
+        // return success response
         return res.status(200).json({
           msg: "Sign in successful",
           role: user.role,
         });
       } else {
+        // return error response
         return res.status(400).json({
           msg: "Invalid credentials",
         });

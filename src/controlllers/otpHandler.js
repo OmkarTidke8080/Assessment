@@ -8,7 +8,6 @@ import { configDotenv } from "dotenv";
 // object to store received otp
 let otpStore = {};
 
-
 // node mailer configuration (credentials)
 const transporter = nodemailer.createTransport({
   service: "gmail",

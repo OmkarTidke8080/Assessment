@@ -17,8 +17,10 @@ import validateSignIn from "../utils/SignInValidations.js"
 const router = express.Router();
 // const upload = multer({ storage });
 
+// sign up user
 router.post("/signUp",validateUser, SignUp);
 
+// upload documents
 router.post(
   "/uploadDocuments/:email",
   isAuthenticated,
@@ -44,7 +46,7 @@ router.post("/signOut", isAuthenticated, logout);
 
 /////////////// Crud Operations Routes /////////////////////////////
 router.get("/getAllUsers", isAuthenticated, isManager, getAllUsers);
-router.get("/userDetails/:email", isAuthenticated, isManager, getUserDetails);
+router.get("/userDetails/:email", isAuthenticated, getUserDetails);
 router.put("/userUpdate/:email", isAuthenticated, updateUser);
 router.delete("/deleteUser/:email", isAuthenticated, isManager, deleteUser);
 

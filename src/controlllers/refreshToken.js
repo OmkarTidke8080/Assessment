@@ -6,6 +6,7 @@ export const refresh = async (req, res) => {
   const { Email } = req.body;
   const refreshToken = req.headers.cookie.split("; ")[1].split("=")[1];
 
+  // call the middle ware to check valid token
   const isValid = verifyRefresh(Email, refreshToken);
   if (!isValid) {
     return res

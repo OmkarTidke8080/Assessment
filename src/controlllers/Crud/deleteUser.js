@@ -1,6 +1,5 @@
 import User from "../../models/UserModel.js";
 
-
 // deleted the user (only manager can delete)
 export const deleteUser = async (req,res) =>{
   const userEmail = req.params.email;

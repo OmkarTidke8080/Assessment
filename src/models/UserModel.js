@@ -1,5 +1,11 @@
 import mongoose from "mongoose";
 
+const DocumentSchema = new mongoose.Schema({
+  type: { type: String, required: true }, // Type of document (AadhaarCard, PanCard, etc.)
+  url: { type: String, required: true }, // URL of the uploaded document
+  name: { type: String, required: true }, // Original name of the document
+});
+
 const UserSchema = new mongoose.Schema({
   FirstName: {
     type: String,
@@ -22,16 +28,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  documents: [
-    {
-      AadhaarCard: { type: String },
-      url: { type: String },
-    },
-    {
-      PanCard: { type: String },
-      url: { type: String },
-    },
-  ],
+  documents: [DocumentSchema], // Use the DocumentSchema for documents
   role: {
     type: String,
     enum: ["user", "manager"],
