@@ -1,6 +1,7 @@
 import User from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import { generateAccessToken } from "../middleware/auth.js";
+import validateSignIn from "../utils/SignInValidations.js";
 import { validationResult } from "express-validator";
 
 

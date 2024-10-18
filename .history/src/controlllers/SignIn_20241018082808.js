@@ -1,15 +1,8 @@
 import User from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import { generateAccessToken } from "../middleware/auth.js";
-import { validationResult } from "express-validator";
-
 
 export const SignIn = async (req, res) => {
-
-   const errors = validationResult(req);
-   if (!errors.isEmpty()) {
-     return res.status(400).json({ errors: errors.array() });
-   }
   try {
     const user = await User.findOne({
       Email: req.body.Email,

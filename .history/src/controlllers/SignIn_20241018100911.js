@@ -1,8 +1,7 @@
 import User from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import { generateAccessToken } from "../middleware/auth.js";
-import { validationResult } from "express-validator";
-
+import validateSignIn from "../utils/SignInValidations.js";
 
 export const SignIn = async (req, res) => {
 

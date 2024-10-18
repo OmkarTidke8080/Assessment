@@ -11,7 +11,6 @@ import deleteUser from "../controlllers/Crud/deleteUser.js";
 import fileUpload from "../controlllers/uploadFiles.js";
 import getAllUsers from "../controlllers/Crud/getAllUsers.js";
 import validateUser from "../utils/SignUpValidations.js";
-import validateSignIn from "../utils/SignInValidations.js"
 // import { storage } from "../storage/storage.js";
 
 const router = express.Router();

@@ -44,7 +44,7 @@ const validateUser = [
     .isString()
     .trim()
     .withMessage("Password should be in String ")
-    .notEmpty()
+    .notEmpty
     .withMessage("Password cannot be empty")
     .isLength({ min: 8, max: 16 })
     .withMessage(
