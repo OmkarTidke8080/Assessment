@@ -1,5 +1,7 @@
 import User from "../../models/UserModel.js";
 
+
+// get specific user details (user can access)
 export const getUserDetails = async (req, res) => {
   try {
     const { email } = req.params;

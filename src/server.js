@@ -3,7 +3,6 @@ import connectDB from "./db/db.js";
 import cookieParser from "cookie-parser";
 import userRoute from "./routes/UserRouter.js";
 import { isAuthenticated } from "./middleware/auth.js";
-
 import dotenv from "dotenv";
 import { optRequest, resetPassword, verifyOtp } from "./controlllers/otpHandler.js";
 import validateRequestOTP from "./utils/requestOtpValidations.js";
@@ -15,13 +14,16 @@ app.use(express.json());
 
 
 app.use(cookieParser());
+
+////////// base route //////////
 app.use("/api/user", userRoute);
 
-const PORT = 3000;
+
+// database connection and server creation code
 connectDB()
   .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server is listening at PORT: ${PORT}`);
+    app.listen(process.env.PORT, () => {
+      console.log(`Server is listening at PORT: ${process.env.PORT}`);
     });
   })
   .catch((err) => {

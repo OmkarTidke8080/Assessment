@@ -4,8 +4,11 @@ import bcrypt from "bcrypt"
 import { validationResult } from "express-validator";
 
 
+
+// object to store received otp
 let otpStore = {};
 
+// node mailer configuration (credentials)
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -13,6 +16,9 @@ const transporter = nodemailer.createTransport({
     pass: "wkbg zuzx xfwa dmil",
   },
 });
+
+
+// send otp request to specified mail
 export const optRequest = async(req,res) =>{
 
    const errors = validationResult(req);
@@ -47,6 +53,8 @@ export const optRequest = async(req,res) =>{
  );
 }
 
+
+// verifies the provided otp
 export const verifyOtp = async(req,res) =>{
 const { Email, otp } = req.body;
 
@@ -58,6 +66,8 @@ if (otpStore[Email] && otpStore[Email] === otp) {
 }
 }
 
+
+// resets the provided password
 export const resetPassword = async (req,res) =>{
   const { Email, newPassword } = req.body;
 

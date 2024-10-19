@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/UserModel.js";
 
+// this middleware generate access and refresh token
 export const generateAccessToken = async (Email) => {
   const accessToken = jwt.sign({ Email: Email }, "accessSecret", {
     expiresIn: "15m",
@@ -12,6 +13,8 @@ export const generateAccessToken = async (Email) => {
   return { accessToken, refreshToken };
 };
 
+
+// checks is user is Authenticated
 export const isAuthenticated = async (req, res, next) => {
   try {
     let token = "";
@@ -32,6 +35,8 @@ export const isAuthenticated = async (req, res, next) => {
   }
 };
 
+
+// verify refresh token
 export const verifyRefresh = async (Email, token) => {
   try {
     const decoded = jwt.verify(token, "refreshSecret");
@@ -42,7 +47,7 @@ export const verifyRefresh = async (Email, token) => {
   }
 };
 
-
+// check if signed user role is manager (Access controll middleware)
 export const isManager = async (req, res, next) => {
   try {
     let token = "";

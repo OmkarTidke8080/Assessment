@@ -3,12 +3,15 @@ import fs from "fs";
 
 
 
+
+// update the user details (user can update)
 export const updateUser = async (req, res) => {
   const userEmail = req.params.email;
 
   try {
     const user = await User.findOne({ Email: userEmail });
 
+    
     if (!user) {
       console.log("User not found");
       return res.status(404).json({ msg: "User not found" });

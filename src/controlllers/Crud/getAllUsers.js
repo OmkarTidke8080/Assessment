@@ -1,5 +1,8 @@
 import User from "../../models/UserModel.js";
 
+
+
+// get all users present in the database ( manager access only)
 export const getAllUsers = async (req, res) => {
   try {
     const users = await User.find(); // Fetch all users
