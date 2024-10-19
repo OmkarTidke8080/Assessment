@@ -1,6 +1,7 @@
 import User from "../models/UserModel.js";
 import nodemailer from "nodemailer";
 import bcrypt from "bcrypt"
+import { validationResult } from "express-validator";
 
 
 let otpStore = {};
@@ -13,6 +14,12 @@ const transporter = nodemailer.createTransport({
   },
 });
 export const optRequest = async(req,res) =>{
+
+   const errors = validationResult(req);
+   if (!errors.isEmpty()) {
+     return res.status(400).json({ errors: errors.array() });
+   }
+
  const { Email } = req.body;
 
  const user = await User.findOne({ Email: Email });

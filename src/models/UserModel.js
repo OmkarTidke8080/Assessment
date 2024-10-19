@@ -22,16 +22,20 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  documents: [
-    {
-      AadhaarCard: { type: String },
-      url: { type: String },
-    },
-    {
-      PanCard: { type: String },
-      url: { type: String },
-    },
-  ],
+  // documents: [
+  //   {
+  //     AadhaarCard: { type: String },
+  //     url: { type: String },
+  //   },
+  //   {
+  //     PanCard: { type: String },
+  //     url: { type: String },
+  //   },
+  // ],
+  documents: {
+    AadhaarCard: { type: String },
+    PanCard: { type: String },
+  },
   role: {
     type: String,
     enum: ["user", "manager"],

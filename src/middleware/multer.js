@@ -1,47 +1,3 @@
-// import { CloudinaryStorage } from "multer-storage-cloudinary";
-// import cloudinary from "cloudinary";
-// import multer from "multer";
-// import dotenv from "dotenv";
-// dotenv.config();
-
-// cloudinary.config({
-//   cloud_name: process.env.CLOUD_NAME,
-//   api_key: process.env.CLOUDINARY_KEY,
-//   api_secret: process.env.CLOUDINARY_SECRET,
-// });
-
-// const storage = new CloudinaryStorage({
-//   cloudinary,
-//   params: {
-//     folder: "Assessment",
-//     allowed_formats: ["jpeg", "png", "jpg", "pdf"],
-//   },
-// });
-
-// // Create the multer instance with the Cloudinary storage
-// const upload = multer({ storage });
-
-// export { upload };
-
-// import multer from "multer";
-// import path, { dirname } from "path";
-// import { fileURLToPath } from "url";
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
-// const parentDir = path.join(__dirname, "..", "public"); 
-
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, parentDir);
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, file.originalname);
-//   },
-// });
-
-// const upload = multer({ storage: storage });
-// export { upload };
 
 import multer from "multer";
 import path, { dirname } from "path";
@@ -52,27 +8,31 @@ const __dirname = dirname(__filename);
 const parentDir = path.join(__dirname, "..", "public");
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+  destination: function (req, file, cb) {
     cb(null, parentDir);
   },
-  filename: (req, file, cb) => {
+  filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
 });
 
-const fileFilter = (req, file, cb) => {
-  const allowedTypes = [
-    "image/jpg",
-    "image/jpeg",
-    "image/png",
-    "application/pdf",
-  ];
-  if (!allowedTypes.includes(file.mimetype)) {
-    return cb(new Error("Only .png, .jpg, and .pdf files are allowed!"), false);
-  }
-  cb(null, true);
+const upload = multer({ storage: storage }).fields([
+  { name: "AadhaarCard", maxCount: 1 },
+  { name: "PanCard", maxCount: 1 },
+]);
+
+const uploadMiddleware = (req, res, next) => {
+  upload(req, res, (err) => {
+    if (err) {
+      return res
+        .status(400)
+        .json({ msg: "Error uploading files", error: err.message });
+    }
+    next(); // Call the next middleware if successful
+  });
 };
 
-const upload = multer({ storage, fileFilter });
+export { uploadMiddleware };
 
-export { upload };
+
+

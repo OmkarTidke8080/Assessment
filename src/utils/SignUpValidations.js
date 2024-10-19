@@ -1,4 +1,4 @@
-import {body, validationResult} from "express-validator";
+import { body, validationResult } from "express-validator";
 
 const validateUser = [
   body("FirstName")
@@ -6,7 +6,7 @@ const validateUser = [
     .trim()
     .withMessage("First Name should contain only characters")
     .notEmpty()
-    .withMessage("First Name is reuired")
+    .withMessage("First Name is required")
     .isLength({ max: 30 })
     .withMessage("First Name length should be less than 30 characters")
     .matches(/^[A-Za-z\s]*$/)
@@ -17,7 +17,7 @@ const validateUser = [
     .trim()
     .withMessage("Last Name should contain only characters")
     .notEmpty()
-    .withMessage("Last Name is reuired")
+    .withMessage("Last Name is required")
     .isLength({ max: 30 })
     .withMessage("Last Name length should be less than 30 characters")
     .matches(/^[A-Za-z\s]*$/)
@@ -34,21 +34,21 @@ const validateUser = [
     .trim()
     .withMessage("User Name should contain only characters")
     .notEmpty()
-    .withMessage("User Name is reuired")
+    .withMessage("User Name is required")
     .isLength({ max: 30 })
     .withMessage("User Name length should be less than 30 characters")
-    .matches(/^[A-Za-z\s]*$/)
+    .matches(/^[A-Za-z0-9_]*$/) // Allow alphanumeric and underscores
     .withMessage("User Name should not contain special characters"),
 
   body("Password")
     .isString()
     .trim()
-    .withMessage("Password should be in String ")
+    .withMessage("Password should be a string")
     .notEmpty()
     .withMessage("Password cannot be empty")
     .isLength({ min: 8, max: 16 })
     .withMessage(
-      "Passsword should contain atleast 8 and maximum 16 characters"
+      "Password should contain at least 8 and a maximum of 16 characters"
     ),
 ];
 
