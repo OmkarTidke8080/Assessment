@@ -1,0 +1,11 @@
+import React from 'react'
+
+function LandingPage() {
+    return (
+        <>
+        <button>Sign Up</button>
+        </>
+    )
+}
+
+export default LandingPage
